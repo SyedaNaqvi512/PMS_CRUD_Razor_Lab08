@@ -1,0 +1,68 @@
+﻿@page "{id:int}"
+@model PMS_CRUD_Razor_Lab08.Pages.Products.DeleteModel
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Product | BlueStore PMS</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-page="/Products/Index">
+            <span class="brand-icon">P</span>
+            BlueStore <span class="brand-light">PMS</span>
+        </a>
+        <a class="topbar-back" asp-page="Index">← Back to Products</a>
+    </header>
+
+    <main class="container form-container">
+        <div class="breadcrumb">
+            <a asp-page="Index">Products</a> <span>/</span> Delete Product
+        </div>
+
+        <section class="form-heading">
+            <span class="eyebrow">INVENTORY CONTROL</span>
+            <h1>Delete Product</h1>
+            <p class="subtitle">Review the product before confirming deletion.</p>
+        </section>
+
+        <section class="delete-panel">
+            <div class="warning-icon">!</div>
+            <h2>Are you sure?</h2>
+            <p class="delete-warning">
+                You are about to permanently delete this product.
+                This action cannot be undone.
+            </p>
+
+            <div class="delete-product">
+                <img src="@Url.Content("~/" + Model.Product.image)"
+                     alt="@Model.Product.Title" class="preview-image" />
+                <div>
+                    <span class="id-badge">PRODUCT #@Model.Product.Id</span>
+                    <h3>@Model.Product.Title</h3>
+                    <p>@Model.Product.description</p>
+                    <strong>@Model.Product.price.ToString("N0")</strong>
+                </div>
+            </div>
+
+            <form method="post">
+                <div class="form-actions">
+                    <a class="btn btn-secondary" asp-page="Index">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                </div>
+            </form>
+        </section>
+
+        <footer class="footer">
+            <span>BlueStore PMS</span>
+            <span>Product Management System · Lab 08</span>
+        </footer>
+    </main>
+</body>
+</html>

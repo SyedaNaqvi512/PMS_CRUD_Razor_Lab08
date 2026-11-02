@@ -1,0 +1,27 @@
+appsettings.Development.json
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build folders
+bin/
+obj/
+
+# NuGet
+packages/
+
+# Logs
+*.log
+
+# Local database files
+*.mdf
+*.ldf
+
+# Temporary files
+*.tmp
+*.cache
+
+# Operating system files
+.DS_Store
+Thumbs.db

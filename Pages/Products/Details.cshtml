@@ -1,0 +1,84 @@
+﻿@page "{id:int}"
+@model PMS_CRUD_Razor_Lab08.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details | BlueStore PMS</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-page="/Products/Index">
+            <span class="brand-icon">P</span>
+            BlueStore <span class="brand-light">PMS</span>
+        </a>
+        <a class="topbar-back" asp-page="Index">← Back to Products</a>
+    </header>
+
+    <main class="container form-container">
+        <div class="breadcrumb">
+            <a asp-page="Index">Products</a> <span>/</span> Product Details
+        </div>
+
+        <section class="form-heading">
+            <span class="eyebrow">INVENTORY CONTROL</span>
+            <h1>Product Details</h1>
+            <p class="subtitle">Complete information for product #@Model.Product.Id.</p>
+        </section>
+
+        <section class="details-panel">
+            <div class="details-image-area">
+                <img class="details-image"
+                     src="@Url.Content("~/" + Model.Product.image)"
+                     alt="@Model.Product.Title" />
+            </div>
+
+            <div class="details-content">
+                <span class="id-badge">PRODUCT #@Model.Product.Id</span>
+                <h2>@Model.Product.Title</h2>
+                <p class="details-description">@Model.Product.description</p>
+
+                <div class="details-price">
+                    <span>Product Price</span>
+                    <strong>@Model.Product.price.ToString("N0")</strong>
+                </div>
+
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span>Quantity in Stock</span>
+                        <strong>@Model.Product.quantity</strong>
+                    </div>
+                    <div class="detail-item">
+                        <span>Availability</span>
+                        @if (Model.Product.status == "Available")
+                        {
+                            <strong><span class="status status-available">Available</span></strong>
+                        }
+                        else
+                        {
+                            <strong><span class="status status-unavailable">Not Available</span></strong>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-actions details-actions">
+                    <a class="btn btn-secondary" asp-page="Index">Back</a>
+                    <a class="btn btn-primary" asp-page="Edit"
+                       asp-route-id="@Model.Product.Id">Edit Product</a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>BlueStore PMS</span>
+            <span>Product Management System · Lab 08</span>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿@page
+@model PMS_CRUD_Razor_Lab08.Pages.Products.CreateModel
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Product | BlueStore PMS</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-page="/Products/Index">
+            <span class="brand-icon">P</span>
+            BlueStore <span class="brand-light">PMS</span>
+        </a>
+        <a class="topbar-back" asp-page="Index">← Back to Products</a>
+    </header>
+
+    <main class="container form-container">
+        <div class="breadcrumb">
+            <a asp-page="Index">Products</a> <span>/</span> Add Product
+        </div>
+
+        <section class="form-heading">
+            <span class="eyebrow">INVENTORY CONTROL</span>
+            <h1>Add New Product</h1>
+            <p class="subtitle">Enter product information to add it to your inventory.</p>
+        </section>
+
+        <form method="post" enctype="multipart/form-data" class="form-panel">
+            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+            <h2 class="form-section-title">Product Information</h2>
+            <p class="form-section-subtitle">Fields marked with * are required.</p>
+
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label asp-for="Product.Title">Product Title *</label>
+                    <input asp-for="Product.Title" class="form-control"
+                           placeholder="e.g., Wireless Headphones" />
+                    <span asp-validation-for="Product.Title" class="field-error"></span>
+                </div>
+
+                <div class="form-group full-width">
+                    <label asp-for="Product.description">Description *</label>
+                    <textarea asp-for="Product.description" class="form-control"
+                              rows="3" maxlength="50"
+                              placeholder="Write a short description (maximum 50 characters)"></textarea>
+                    <span asp-validation-for="Product.description" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Product.price">Price *</label>
+                    <input asp-for="Product.price" type="number" min="0"
+                           class="form-control" />
+                    <span asp-validation-for="Product.price" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Product.quantity">Quantity *</label>
+                    <input asp-for="Product.quantity" type="number" min="0"
+                           class="form-control" />
+                    <span asp-validation-for="Product.quantity" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Product.status">Status *</label>
+                    <select asp-for="Product.status" class="form-control">
+                        <option value="Available">Available</option>
+                        <option value="Not Available">Not Available</option>
+                    </select>
+                    <span asp-validation-for="Product.status" class="field-error"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ImageFile">Product Image *</label>
+                    <input asp-for="ImageFile" type="file" class="form-control"
+                           accept=".jpg,.jpeg,.png,.webp" />
+                    <small class="help-text">JPG, JPEG, PNG, or WEBP · Maximum 5 MB</small>
+                    <span asp-validation-for="ImageFile" class="field-error"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="btn btn-secondary" asp-page="Index">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save Product</button>
+            </div>
+        </form>
+
+        <footer class="footer">
+            <span>BlueStore PMS</span>
+            <span>Product Management System · Lab 08</span>
+        </footer>
+    </main>
+</body>
+</html>

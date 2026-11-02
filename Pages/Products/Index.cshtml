@@ -1,0 +1,132 @@
+﻿@page
+@model PMS_CRUD_Razor_Lab08.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Product Management";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | BlueStore PMS</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-page="/Products/Index">
+            <span class="brand-icon">P</span>
+            BlueStore <span class="brand-light">PMS</span>
+        </a>
+        <span class="topbar-label">Product Management System</span>
+    </header>
+
+    <main class="container">
+        <section class="page-heading">
+            <div>
+                <span class="eyebrow">INVENTORY CONTROL</span>
+                <h1>Product Management</h1>
+                <p class="subtitle">Manage your products, prices, and stock in one place.</p>
+            </div>
+            <a class="btn btn-primary" asp-page="Create">+ Add New Product</a>
+        </section>
+
+        @if (TempData["Success"] is string success)
+        {
+            <div class="alert alert-success">@success</div>
+        }
+
+        @if (TempData["Error"] is string error)
+        {
+            <div class="alert alert-error">@error</div>
+        }
+
+        <section class="stat-card">
+            <div>
+                <span class="stat-label">TOTAL PRODUCTS</span>
+                <div class="stat-number">@Model.Products.Count</div>
+            </div>
+            <div class="stat-icon">▦</div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>All Products</h2>
+                    <p>Products currently saved in your inventory.</p>
+                </div>
+                <span class="count-badge">@Model.Products.Count items</span>
+            </div>
+
+            @if (Model.Products.Count == 0)
+            {
+                <div class="empty-state">
+                    <div class="empty-icon">▦</div>
+                    <h3>No products yet</h3>
+                    <p>Start building your inventory by adding your first product.</p>
+                    <a class="btn btn-primary" asp-page="Create">Add Your First Product</a>
+                </div>
+            }
+            else
+            {
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>PRODUCT</th>
+                                <th>DESCRIPTION</th>
+                                <th>PRICE</th>
+                                <th>QUANTITY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td class="id-cell">#@product.Id</td>
+                                    <td>
+                                        <div class="product-cell">
+                                            <img class="product-thumb"
+                                                 src="@Url.Content("~/" + product.image)"
+                                                 alt="@product.Title" />
+                                            <span class="product-name">@product.Title</span>
+                                        </div>
+                                    </td>
+                                    <td class="description-cell">@product.description</td>
+                                    <td class="price-cell">@product.price.ToString("N0")</td>
+                                    <td>@product.quantity</td>
+                                    <td>
+                                        @if (product.status == "Available")
+                                        {
+                                            <span class="status status-available">Available</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="status status-unavailable">Not Available</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="actions">
+                                            <a class="action-link" asp-page="Details" asp-route-id="@product.Id">View</a>
+                                            <a class="action-link" asp-page="Edit" asp-route-id="@product.Id">Edit</a>
+                                            <a class="action-link action-delete" asp-page="Delete" asp-route-id="@product.Id">Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </section>
+
+        <footer class="footer">
+            <span>BlueStore PMS</span>
+            <span>Product Management System · Lab 08</span>
+        </footer>
+    </main>
+</body>
+</html>
